@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Conference</title>
+</head>
+<body>
+  <main>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <form id="create_meet" action="/newRoom" type="POST">
+            <h3>Create new meeting</h3>
+            <input type="text" name="room" placeholder="Room name..." required>
+            <input type="text" name="password" placeholder="Use passcode...">
+            <button type="submit">Enter</button>
+          </form>
+          <hr>
+          <form id="join_meet">
+            <h3>Join meeting</h3>
+            <input type="text" name="name" placeholder="Your name..." required>
+            <input type="text" name="room" placeholder="Room name..." required>
+            <input type="text" name="password" placeholder="Use passcode..." required>
+            <button type="button">Enter</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>  
+</body>
+</html>
