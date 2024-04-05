@@ -1,24 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Room Meeting</title>
-</head>
-<body>
-  <nav id="options">
-    <button>exit</button>
-  </nav>
-  <main id="video-grid">
-    
-  </main>
-  <aside id="chat">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC P2P Video Chat</title>
+    <link rel="icon" type="image/x-icon" href="images/logo-favicon.png">
+    <link rel="stylesheet" href="css/style-room.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-11">
+            <p><i class="material-icons">&#xe7fd;</i> People in room: <span id="participant">4</span></p>
+          </div>
+          <div class="col-1 text-right">
+            <button id="power" onclick="leaveMeeting()">Exit</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div id="form">
+              <div class="row">
+                <div class="col-md-8">
+                  <video id="main-video" title="Double click to display fullscreen." ondblclick="fullscreen()" autoplay></video>
+                  <div class="commands">
+                    <div class="command-btn" id="audioControl" onclick="muteUnmute()">
+                      <i class="material-icons">&#xe029;</i>
+                      <p class="label">Mic</p>
+                    </div>
+                    <div class="command-btn" id="videoControl" onclick="playStop()">
+                      <i class="material-icons">&#xe04b;</i>
+                      <p class="label">Cam</p>
+                    </div>
+                    <div class="command-btn" id="shareControl" onclick="shareScreen()">
+                      <i class="material-icons">&#xe0df;</i>
+                      <p class="label" id="shareText">Share</p>
+                    </div>
+                    <div class="command-btn" id="recordControl" onclick="recordMeeting()">
+                      <i class="material-icons">&#xe061;</i>
+                      <p class="label">Record</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <div id="video-grid"></div>
+                </div>
+                <div class="col-md-3">
+                  <div id="right-content" class="chat">
+                    <p>Chat</p>
+                    <div class="active"></div>
+                    <div id="chatroom">
+        
+                    </div>
+                    <div id="chatform">
+                      <label>
+                        <input type="file" id="file" style="display: none;" onchange="selectFile(this.value)">
+                        <i class="material-icons">&#xe226;</i>
+                      </label>
+                      <input id="textchat" type="text" placeholder="Type here ...">
+                      <button id="sendMessage" style="background-color: #000; border: none; margin-left: 8px; padding: 4px 3px 2px 3px; margin-top: 8px; border-radius: 6px; cursor: pointer;">
+                        <i class="material-icons" style="color: #ffffff; font-size: 25px; font-weight: bold;">&#xe315;</i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
 
-  </aside>
-  <script>
-    const ROOM_ID = "<%= roomId %>"
-    const USERNAME = "<%= userName %>"
-  </script>
-  <script src="webrtcController.js"></script>
-</body>
+        const ROOM_ID = "<%= roomId %>";
+        const USERNAME = "<%= username %>";
+
+        function fullscreen() {
+             var mainVideo = document.getElementById("main-video");  
+             if (mainVideo.requestFullscreen) {
+                mainVideo.requestFullscreen();
+            }
+        }
+
+        var symbol, color;
+        symbol = "0123456789ABCDEF";
+        color = "#";
+        for(var i=0; i<6; i++){
+           color = color+symbol[Math.floor(Math.random()*16)];
+        }
+        const RANDOM_COLOR = color;
+    </script>
+    <script src="webrtc-controller.js"></script>
+  </body>
 </html>
