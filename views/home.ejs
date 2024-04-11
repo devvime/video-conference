@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC P2P Video Chat</title>
+    <link rel="icon" type="image/x-icon" href="https://cloud.susumo.com.br/images/susumo/logo/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yarndings+12&display=swap">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="dist/css/home.min.css">
+  </head>
+  <body>
+    <main>
+      <header class="mb-3">
+        <a class="logo" href="https://susumo.com.br/" target="_blank">
+          <img src="https://cloud.susumo.com.br/images/susumo/logo/icon.png" alt="">
+        </a>
+        <h1 class="text-center">Susumo Meet</h1>
+        <p class="text-center">Reuniões com segurança e alta qualidade.</p>
+      </header>
+      <section class="py-4">
+        <div class="container pb-5">
+          <div class="row">
+            <div class="col-md-4 offset-md-2">
+              <div class="card">
+                <div class="card-body">
+                  <h5>Criar Reunião</h5>
+                  <input class="form-control mb-3" id="name" type="text" placeholder="Seu nome..." autocomplete="off">
+                  <input class="form-control mb-3" id="pass" type="text" placeholder="Senha (opicional)..." autocomplete="off">
+                  <button class="btn btn-dark" type="button" onclick="newRoom()">Criar</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5>Acessar Reunião</h5>
+                  <input class="form-control mb-3" id="joinName" type="text" placeholder="Seu nome ..." autocomplete="off">
+                  <input class="form-control mb-3" id="joinRoomCode" type="text" placeholder="Código da reunião..." autocomplete="off">
+                  <input class="form-control mb-3" id="joinPass" type="pasword" placeholder="Password (optional)..." autocomplete="off">
+                  <button class="btn btn-dark" type="button" onclick="joinRoom()">Acessar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script>
+      document.addEventListener('contextmenu', event => event.preventDefault());
+      function newRoom() {
+        var name = document.getElementById("name").value;
+        var pass = document.getElementById("pass").value;
+        location.assign("/newroom?username=" + name + "&password=" + pass);
+      }
+      function joinRoom() {
+        var name = document.getElementById("joinName").value;
+        var room = document.getElementById("joinRoomCode").value;
+        var pass = document.getElementById("joinPass").value;
+        location.assign("/joinroom?username=" + name + "&invitation=" + room + "&password=" + pass);
+      } 
+    </script>
+  </body>
+</html>

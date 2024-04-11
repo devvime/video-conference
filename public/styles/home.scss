@@ -1,0 +1,64 @@
+body {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #ebebeb;
+}
+
+main {
+  width: 100%;
+  max-width: 1920px;
+  display: block;
+  margin: auto;
+  overflow: hidden;
+}
+
+header {
+  padding-top: 8em;
+  padding-bottom: 8em;
+  background-image: url(https://cloud.susumo.com.br/images/lib/aesthetic-background.jpg), linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  background-blend-mode: overlay;  
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+  h1, p {
+    color: #fff;
+  }
+  .logo {
+    position: absolute;
+    width: 30px;
+    top: 4%;
+    left: 1%;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+label {
+  font-size: 0.875em;
+}
+
+#pass, #joinPass {
+  font-family: "Yarndings 12", system-ui;
+  &::placeholder {
+    font-family: "Raleway", sans-serif;
+  }
+}
+
+.container {
+  @media (max-width: 1200px) {
+    max-width: none;
+  }
+}
+
+.card {
+  height: 100%;
+}
+
+.col-md-4 {
+  @media (max-width: 768px) {
+    margin-bottom: 1em;
+  }
+}
