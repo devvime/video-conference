@@ -2,15 +2,24 @@ const express = require('express');
 const app = express(); 
 const server = require('http').Server(app); 
 const fs = require('fs'); 
+const { v4: uuidv4 } = require('uuid');
+const { ExpressPeerServer } = require('peer');
+const io = require('socket.io')(server);
+const peerServer = ExpressPeerServer(server, {
+  debug: true
+});
 
+var un, pc;
+var unJ, inJ, pcJ;
+
+app.use('/peerjs', peerServer);
 app.use(express.static('public'));
 app.set('view engine', 'ejs'); 
+
 app.get('/', (req, res) => { 
   res.render('home'); 
 })
 
-const { v4: uuidv4 } = require('uuid');
-var un, pc;
 app.get('/newroom', (req, res) => {
   un = req.query.username;
   pc = req.query.password;
@@ -19,7 +28,6 @@ app.get('/newroom', (req, res) => {
   res.redirect(`/${roomId}`);
 })
 
-var unJ, inJ, pcJ;
 app.get('/joinroom', (req, res) => {
   unJ = req.query.username;
   inJ = req.query.invitation;
@@ -50,13 +58,14 @@ app.get('/:room', (req, res) => {
   });
 })
 
-const { ExpressPeerServer } = require('peer');
-const peerServer = ExpressPeerServer(server, {
-  debug: true
+app.post('/upload', (req, res) => {
+  const fileName = req.headers['file-name'];
+  req.on('data', (chunk) => {
+    fs.appendFileSync(__dirname + '/public/uploads/' + fileName, chunk);
+  })
+  res.end('uploaded');
 });
-app.use('/peerjs', peerServer);
 
-const io = require('socket.io')(server);
 io.on('connection', socket => {
   socket.on('join-room', (roomId, peerId) => {
     socket.join(roomId);
@@ -72,13 +81,5 @@ io.on('connection', socket => {
     })
   })
 })
-
-app.post('/upload', (req, res) => {
-  const fileName = req.headers['file-name'];
-  req.on('data', (chunk) => {
-    fs.appendFileSync(__dirname + '/public/uploads/' + fileName, chunk);
-  })
-  res.end('uploaded');
-});
 
 server.listen(process.env.PORT || 1717, () => console.log(`listening on port ${process.env.PORT || 1717}`));
