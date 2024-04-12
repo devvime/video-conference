@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="dist/css/meet.min.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/libs/peerjs.min.js"></script>
   </head>
   <body class="bg-dark text-light">
     <main>
@@ -70,8 +72,6 @@
         </div>
       </div>
     </main>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="js/libs/peerjs.min.js"></script>
     <script src="js/libs/jquery.min.js"></script>
     <script>
         const ROOM_ID = "<%= roomId %>";
