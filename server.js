@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 const { ExpressPeerServer } = require('peer');
 const io = require('socket.io')(server);
 const peerServer = ExpressPeerServer(server, {
-  debug: true
+  debug: false
 });
 
 var un, pc;
