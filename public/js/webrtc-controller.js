@@ -3,8 +3,7 @@ const mainVid = document.getElementById("main-video");
 const socket = io('/');
 const peer = new Peer(undefined, {
   path: '/peerjs',
-  host: '/',
-  port: '1717'
+  host: '/'
 });
 
 let myPeerId;
