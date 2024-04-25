@@ -1,6 +1,6 @@
 const videoGrid = document.getElementById('video-grid');
 const mainVid = document.getElementById("main-video");
-const socket = io("https://meet.susumo.com.br");
+const socket = io("wss://meet.susumo.com.br");
 const peer = new Peer(undefined, {
   path: '/peerjs',
   host: '/'
